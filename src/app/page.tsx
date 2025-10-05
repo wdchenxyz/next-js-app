@@ -1,4 +1,6 @@
+import Link from "next/link";
 import FeedbackForm from "@/components/feedback-form";
+import { Button } from "@/components/ui/button";
 import { readFeedback } from "@/lib/feedback";
 import { submitFeedback } from "./actions";
 
@@ -19,6 +21,11 @@ export default async function Home() {
           Submit the form to trigger a Next.js Server Action that persists your note and
           revalidates the list instantly.
         </p>
+        <div className="flex justify-center sm:justify-start">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/dashboard">Visit the dashboard demo</Link>
+          </Button>
+        </div>
       </header>
 
       <main className="grid gap-12 md:grid-cols-[1.5fr_1fr]">
