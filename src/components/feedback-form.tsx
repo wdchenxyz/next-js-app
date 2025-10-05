@@ -2,9 +2,8 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import type {
-  FeedbackFormState,
-} from "@/app/actions";
+import { Button } from "@/components/ui/button";
+import type { FeedbackFormState } from "@/app/actions";
 
 type FeedbackFormAction = (
   prevState: FeedbackFormState,
@@ -24,13 +23,14 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button
+    <Button
       type="submit"
-      className="rounded-md bg-foreground px-4 py-2 text-sm font-semibold text-background transition hover:bg-black"
+      size="lg"
+      className="font-semibold"
       disabled={pending}
     >
       {pending ? "Sending…" : "Share feedback"}
-    </button>
+    </Button>
   );
 }
 
