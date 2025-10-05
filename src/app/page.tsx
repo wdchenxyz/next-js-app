@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FeedbackForm from "@/components/feedback-form";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { readFeedback } from "@/lib/feedback";
 import { submitFeedback } from "./actions";
 
@@ -9,6 +10,13 @@ export default async function Home() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col gap-12 px-6 py-12">
+      <div className="flex justify-end">
+        <div className="flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 shadow-sm">
+          <span className="text-sm text-muted-foreground">Theme</span>
+          <ThemeToggle />
+        </div>
+      </div>
+
       <header className="grid gap-3 text-center sm:text-left">
         <p className="text-xs uppercase tracking-[0.2em] text-foreground/70">
           Full-stack demo
