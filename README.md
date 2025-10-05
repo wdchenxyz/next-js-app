@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## Explain each file
+  - src/app/api/feedback/route.ts – API route for /api/feedback; external clients can
+    GET/POST notes through it.
+  - src/app/page.tsx – Server component for the / route; reads feedback, renders the
+    list, and mounts the form.
+  - src/app/layout.tsx – Root layout applied to every route; sets up <html>, <body>,
+    global fonts, metadata, and imports globals.css.
+  - src/app/globals.css – Global stylesheet; pulls in Tailwind v4, defines light/dark
+    palette variables, and sets base typography.
+  - src/components/feedback-form.tsx – Client component implementing the feedback form
+    UI; calls the server action on submit.
+  - src/lib/feedback.ts – Shared data layer (“backend” helpers) that read/write the
+    JSON store; used by both the page and API route.
+  - src/app/actions.ts – Server actions invoked from the form; validates submissions,
+    persists them, and triggers cache revalidation.
