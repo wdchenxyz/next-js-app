@@ -1,53 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EDA Dashboard Demo
+
+This repository hosts a single-purpose Next.js application that renders an exploratory data analysis (EDA) dashboard. The UI is fed by a static JSON report and showcases the kinds of summaries a data team might review before modeling.
+
+## Features
+- Server-rendered dashboard at `/eda` detailing dataset metadata, descriptive statistics, data-quality checks, correlations, feature insights, and histogram distributions.
+- Mock EDA payload stored on disk (`data/eda-report.json`) that can be edited without touching the codebase.
+- Lightweight root route that redirects straight to the dashboard experience.
+- Zero external APIs or server actions—everything required to render lives in the app and data folder.
 
 ## Getting Started
-
-First, run the development server:
+Install dependencies and start the local dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to view the dashboard. The home route immediately redirects to `/eda`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Data refresh
+Update `data/eda-report.json` to change the dashboard contents. The file is loaded at request time, so edits become visible after saving.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
+- `src/app/layout.tsx` – Root layout that wires up fonts, metadata, and global styles.
+- `src/app/page.tsx` – Minimal entrypoint that redirects to the dashboard route.
+- `src/app/eda/page.tsx` – Main dashboard implementation; reads the EDA report and renders every section.
+- `src/lib/eda.ts` – Strongly-typed helper used to read and validate the mock report JSON.
+- `data/eda-report.json` – Mock data source powering the UI.
 
-## Learn More
+## Scripts
+- `npm run dev` – Start the Next.js development server.
+- `npm run build` – Create an optimized production bundle.
+- `npm run start` – Run the production build locally.
+- `npm run lint` – Check the codebase with ESLint.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
-## Explain each file
-  - src/app/api/feedback/route.ts – API route for /api/feedback; external clients can
-    GET/POST notes through it.
-  - src/app/page.tsx – Server component for the / route; reads feedback, renders the
-    list, and mounts the form.
-  - src/app/layout.tsx – Root layout applied to every route; sets up <html>, <body>,
-    global fonts, metadata, and imports globals.css.
-  - src/app/globals.css – Global stylesheet; pulls in Tailwind v4, defines light/dark
-    palette variables, and sets base typography.
-  - src/components/feedback-form.tsx – Client component implementing the feedback form
-    UI; calls the server action on submit.
-  - src/lib/feedback.ts – Shared data layer (“backend” helpers) that read/write the
-    JSON store; used by both the page and API route.
-  - src/app/actions.ts – Server actions invoked from the form; validates submissions,
-    persists them, and triggers cache revalidation.
+## Customization ideas
+- Extend the JSON schema with additional visualization inputs (e.g., box plots, cohort tables) and mirror them in the dashboard UI.
+- Wire the loader to a real data source or API endpoint once backend services are available.
+- Drop in charting libraries for richer visualization beyond the current CSS-based histograms.
