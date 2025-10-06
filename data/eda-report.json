@@ -1,0 +1,178 @@
+{
+  "dataset": {
+    "name": "Customer Retention Sample",
+    "description": "Mock export of enriched customer engagement metrics pulled for retention modeling.",
+    "rows": 15432,
+    "columns": 42,
+    "numericColumns": 26,
+    "categoricalColumns": 12,
+    "dateColumns": 4,
+    "missingCellsPct": 6.4,
+    "lastUpdated": "2024-11-18T00:00:00.000Z",
+    "primaryKey": "customer_id"
+  },
+  "overviewMetrics": [
+    {
+      "id": "records",
+      "label": "Rows",
+      "value": "15,432",
+      "change": "+4.2% vs last load",
+      "trend": "up"
+    },
+    {
+      "id": "features",
+      "label": "Features",
+      "value": "42",
+      "change": "+3 engineered",
+      "trend": "up"
+    },
+    {
+      "id": "missing",
+      "label": "Missing Cells",
+      "value": "6.4%",
+      "change": "-1.1 pts since October",
+      "trend": "down"
+    },
+    {
+      "id": "runtime",
+      "label": "Refresh Duration",
+      "value": "84s",
+      "change": "Stable",
+      "trend": "flat"
+    }
+  ],
+  "filters": {
+    "segments": ["All Customers", "High Value", "Churn Risk", "New Subscribers"],
+    "timeRanges": ["Last 30 days", "Last 90 days", "Year to date"],
+    "focusFeatures": ["lifetime_value", "avg_order_value", "visits_last_30_days", "discount_usage"]
+  },
+  "quality": {
+    "missingColumns": [
+      { "column": "last_purchase_date", "percent": 14.2 },
+      { "column": "support_tickets", "percent": 8.1 },
+      { "column": "discount_usage", "percent": 5.4 },
+      { "column": "preferred_channel", "percent": 4.7 }
+    ],
+    "duplicateRows": 132,
+    "outliersFlagged": 287
+  },
+  "summaryStats": {
+    "numerical": [
+      {
+        "feature": "lifetime_value",
+        "mean": 856.3,
+        "median": 812.5,
+        "std": 215.2,
+        "min": 120.2,
+        "max": 1810.9
+      },
+      {
+        "feature": "avg_order_value",
+        "mean": 78.4,
+        "median": 74.1,
+        "std": 15.3,
+        "min": 28.6,
+        "max": 152.8
+      },
+      {
+        "feature": "visits_last_30_days",
+        "mean": 4.1,
+        "median": 3,
+        "std": 2.3,
+        "min": 0,
+        "max": 18
+      }
+    ],
+    "categorical": [
+      {
+        "feature": "loyalty_tier",
+        "topCategory": "Gold",
+        "topPercent": 0.34,
+        "uniqueCount": 4
+      },
+      {
+        "feature": "preferred_channel",
+        "topCategory": "Email",
+        "topPercent": 0.46,
+        "uniqueCount": 5
+      },
+        {
+        "feature": "region",
+        "topCategory": "North America",
+        "topPercent": 0.41,
+        "uniqueCount": 6
+      }
+    ]
+  },
+  "histograms": [
+    {
+      "feature": "lifetime_value",
+      "bins": [
+        { "range": "0-400", "count": 2140 },
+        { "range": "400-800", "count": 5420 },
+        { "range": "800-1200", "count": 4310 },
+        { "range": "1200-1600", "count": 2175 },
+        { "range": "1600+", "count": 1387 }
+      ]
+    },
+    {
+      "feature": "avg_order_value",
+      "bins": [
+        { "range": "0-40", "count": 1820 },
+        { "range": "40-60", "count": 3960 },
+        { "range": "60-80", "count": 4875 },
+        { "range": "80-100", "count": 3210 },
+        { "range": "100+", "count": 1567 }
+      ]
+    },
+    {
+      "feature": "visits_last_30_days",
+      "bins": [
+        { "range": "0", "count": 2480 },
+        { "range": "1-3", "count": 5896 },
+        { "range": "4-6", "count": 3475 },
+        { "range": "7-9", "count": 1364 },
+        { "range": "10+", "count": 850 }
+      ]
+    }
+  ],
+  "correlations": [
+    { "feature": "lifetime_value", "value": 0.82, "pairedWith": "total_revenue" },
+    { "feature": "avg_order_value", "value": -0.44, "pairedWith": "discount_usage" },
+    { "feature": "visits_last_30_days", "value": -0.54, "pairedWith": "churn_probability" }
+  ],
+  "insights": [
+    {
+      "title": "Seasonal Purchasing Pattern",
+      "description": "Site traffic and ordering frequency spike mid-week. Retention campaigns scheduled on Tuesdays perform 12% better.",
+      "impact": "opportunity"
+    },
+    {
+      "title": "High Churn Risk Segment",
+      "description": "Customers in the 'Onboarding' segment with <3 visits in the last 60 days show a 28% higher churn probability.",
+      "impact": "risk"
+    },
+    {
+      "title": "Data Completeness",
+      "description": "Missing rate for `support_tickets` is concentrated among Gold tier customers, suggesting tracking gaps in the helpdesk integration.",
+      "impact": "watch"
+    }
+  ],
+  "featureHighlights": [
+    {
+      "feature": "discount_usage",
+      "trend": -0.12,
+      "note": "Declined over the last quarter even as promotions increased."
+    },
+    {
+      "feature": "email_open_rate",
+      "trend": 0.18,
+      "note": "Improved after segmented campaigns; consider doubling down on targeted offers."
+    },
+    {
+      "feature": "support_tickets",
+      "trend": 0.05,
+      "note": "Slight uptick correlated with shipping delays flagged last month."
+    }
+  ]
+}

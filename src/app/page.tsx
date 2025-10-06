@@ -29,9 +29,12 @@ export default async function Home() {
           Submit the form to trigger a Next.js Server Action that persists your note and
           revalidates the list instantly.
         </p>
-        <div className="flex justify-center sm:justify-start">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
           <Button asChild variant="outline" size="lg">
             <Link href="/dashboard">Visit the dashboard demo</Link>
+          </Button>
+          <Button asChild size="lg">
+            <Link href="/eda">Open the EDA dashboard</Link>
           </Button>
         </div>
       </header>
