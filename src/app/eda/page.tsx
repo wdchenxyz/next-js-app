@@ -1,3 +1,5 @@
+import { HistogramChart } from "@/components/eda/histogram-chart"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -5,14 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import {
   readEdaReport,
   type CorrelationStat,
   type EdaReport,
   type FeatureHighlight,
-  type FeatureHistogram,
   type Insight,
   type InsightImpact,
   type OverviewMetric,
@@ -155,43 +155,6 @@ function FeatureHighlightItem({ highlight }: { highlight: FeatureHighlight }) {
       </div>
       <p className="text-xs text-muted-foreground">{highlight.note}</p>
     </li>
-  )
-}
-
-function HistogramChart({ histogram }: { histogram: FeatureHistogram }) {
-  const maxCount = Math.max(...histogram.bins.map((bin) => bin.count)) || 1
-
-  return (
-    <div className="space-y-3 rounded-lg border border-border/60 bg-muted/10 p-4">
-      <div className="flex items-center justify-between text-sm font-semibold text-foreground">
-        <span>{histogram.feature}</span>
-        <span className="text-xs font-medium text-muted-foreground">
-          {numberFormatter.format(
-            histogram.bins.reduce((total, bin) => total + bin.count, 0)
-          )} records
-        </span>
-      </div>
-      <ul className="space-y-3">
-        {histogram.bins.map((bin) => {
-          const barWidth = Math.round((bin.count / maxCount) * 100)
-
-          return (
-            <li key={`${histogram.feature}-${bin.range}`} className="space-y-1">
-              <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
-                <span>{bin.range}</span>
-                <span>{numberFormatter.format(bin.count)}</span>
-              </div>
-              <div className="h-2 rounded-full bg-background">
-                <div
-                  className="h-2 rounded-full bg-primary"
-                  style={{ width: `${barWidth}%` }}
-                />
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
   )
 }
 
