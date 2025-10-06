@@ -25,7 +25,9 @@ export default async function Home() {
           Mini Feedback Board
         </h1>
         <p className="text-base text-foreground/75 sm:text-lg">
-          This page renders server-side with data read from <code>data/feedback.json</code>.
+          This page renders server-side with notes loaded from our Upstash Redis store in
+          production. When running locally without Upstash credentials it falls back to
+          the <code>data/feedback.json</code> file.
           Submit the form to trigger a Next.js Server Action that persists your note and
           revalidates the list instantly.
         </p>
@@ -60,10 +62,10 @@ export default async function Home() {
               feedback.map((entry) => (
                 <li
                   key={entry.id}
-                  className="rounded-lg border border-foreground/10 bg-background p-6 shadow-sm"
+                  className="rounded-xl border border-foreground/10 bg-background px-5 py-4 shadow-sm"
                 >
                   <p className="text-sm font-medium text-foreground/80">{entry.author}</p>
-                  <p className="mt-2 text-base leading-relaxed text-foreground">
+                  <p className="mt-1.5 text-base leading-normal text-foreground">
                     {entry.message}
                   </p>
                 </li>
@@ -79,9 +81,10 @@ export default async function Home() {
             initialState={{ status: "idle" }}
           />
           <p className="text-sm text-foreground/70">
-            For demo purposes we store submissions inside <code>data/feedback.json</code>.
-            Both the form and the <code>/api/feedback</code> route use the same file-backed
-            helper in <code>src/lib/feedback.ts</code> to keep things in sync.
+            Submissions persist to Upstash Redis in production and fall back to the
+            <code>data/feedback.json</code> file during local development. Both the form and
+            the <code>/api/feedback</code> route reuse the same helper in
+            <code>src/lib/feedback.ts</code> to stay in sync.
           </p>
         </aside>
       </main>

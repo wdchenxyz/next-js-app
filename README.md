@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables
+
+Create a `.env.local` with the Upstash connection secrets if you want to persist
+feedback through Redis while developing locally:
+
+```
+KV_REST_API_URL=...        # or UPSTASH_REDIS_REST_URL
+KV_REST_API_TOKEN=...      # or UPSTASH_REDIS_REST_TOKEN
+```
+
+When these variables are absent the app falls back to reading/writing the
+`data/feedback.json` file so you can still test the flow offline.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -47,7 +60,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
     palette variables, and sets base typography.
   - src/components/feedback-form.tsx – Client component implementing the feedback form
     UI; calls the server action on submit.
-  - src/lib/feedback.ts – Shared data layer (“backend” helpers) that read/write the
-    JSON store; used by both the page and API route.
+  - src/lib/feedback.ts – Shared data layer (“backend” helpers) that talk to Upstash
+    Redis (or the fallback JSON file in local dev); used by both the page and API
+    route.
   - src/app/actions.ts – Server actions invoked from the form; validates submissions,
     persists them, and triggers cache revalidation.
