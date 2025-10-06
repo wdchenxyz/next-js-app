@@ -74,26 +74,26 @@ function MetricCard({ metric }: { metric: OverviewMetric }) {
   const trendColor = metric.trend ? trendColorMap[metric.trend] : "text-muted-foreground"
 
   return (
-    <Card className="h-full">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-0">
-        <div>
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            {metric.label}
-          </CardTitle>
+    <Card className="h-full gap-4 py-4">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-3">
+        <div className="flex items-baseline gap-2">
+          <CardTitle className="text-sm font-medium text-muted-foreground">{metric.label}</CardTitle>
+          <span className="text-4xl font-semibold leading-none tracking-tight text-foreground">
+            {metric.value}
+          </span>
         </div>
         <span className="rounded-full bg-primary/10 p-2 text-primary">
           <Icon className="h-4 w-4" aria-hidden />
         </span>
       </CardHeader>
-      <CardContent className="pt-4">
-        <div className="text-2xl font-semibold tracking-tight">{metric.value}</div>
-        {metric.change ? (
-          <div className="mt-3 flex items-center gap-2 text-sm">
+      {metric.change ? (
+        <CardContent className="px-4 pb-4 pt-0">
+          <div className="flex items-center gap-2 text-sm">
             {TrendIcon ? <TrendIcon className={cn("h-4 w-4", trendColor)} aria-hidden /> : null}
             <span className={cn("font-medium", trendColor)}>{metric.change}</span>
           </div>
-        ) : null}
-      </CardContent>
+        </CardContent>
+      ) : null}
     </Card>
   )
 }
